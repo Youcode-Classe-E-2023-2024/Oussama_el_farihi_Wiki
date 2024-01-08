@@ -14,7 +14,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="assets/css/style.css" rel="stylesheet" />
 </head>
 <body>
     <!-- Navigation-->
@@ -35,7 +35,6 @@
                 </div>
             </div>
         </nav>
-    <h1><?= ucfirst($page) ?> View</h1>
 
     <main>
         <?php include_once 'views/' . $page . '_view.php'; ?>
