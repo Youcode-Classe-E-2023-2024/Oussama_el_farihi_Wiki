@@ -25,6 +25,6 @@ define('__ROOT__', dirname(dirname(__FILE__)));
 
 /* db info */
 const DB_HOST = 'localhost';
-const DB_NAME = 'simple_mvc_db';
+const DB_NAME = 'wiki';
 const DB_USER = 'root';
 const DB_PASS = '';
