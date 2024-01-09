@@ -14,37 +14,33 @@
     <div class="container-fluid">
         <div class="row">
         <div class="col-md-2 bg-secondary d-none d-md-block min-vh-100">
-                <h4 class="text-white p-3">Dashboard</h4>
-                <!-- Sidebar content -->
+                <h4 class="text-white p-3"><a class="text-white" href="index.php?page=dashboard">Dashboard</a></h4>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/admin/categories">Manage Categories</a>
+                        <a class="nav-link text-white" href="index.php?page=categories">Manage Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/admin/tags">Manage Tags</a>
+                        <a class="nav-link text-white" href="index.php?page=tags">Manage Tags</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/admin/archive">Archive Wikis</a>
+                        <a class="nav-link text-white" href="index.php?page=archive">Archive Wikis</a>
                     </li>
-                    <!-- More links can be added here -->
                 </ul>
             </div>
 
             <div class="collapse d-md-none" id="sidebarCollapse">
                 <div class="bg-secondary p-3">
                     <h4 class="text-white">Dashboard</h4>
-                    <!-- Collapsed Sidebar content -->
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/admin/categories">Manage Categories</a>
+                            <a class="nav-link text-white" href="index.php?page=categories">Manage Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/admin/tags">Manage Tags</a>
+                            <a class="nav-link text-white" href="index.php?page=tags">Manage Tags</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/admin/archive">Archive Wikis</a>
+                            <a class="nav-link text-white" href="index.php?page=archive">Archive Wikis</a>
                         </li>
-                        <!-- More links can be added here -->
                     </ul>
                 </div>
             </div>
@@ -86,13 +82,11 @@
                 
                 <div class="row">
                     <div class="col-lg-6 mb-4">
-                        <!-- Chart container -->
                         <div class="bg-white p-4 rounded">
                             <canvas id="visitsChart"></canvas>
                         </div>
                     </div>
                     <div class="col-lg-6 mb-4">
-                        <!-- Chart container -->
                         <div class="bg-white p-4 rounded">
                             <canvas id="salesChart"></canvas>
                         </div>
