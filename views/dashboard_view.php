@@ -1,21 +1,62 @@
-<section class="min-vh-100 d-flex justify-content-center align-items-center bg-dark">
+<style>
+    .dashboard-padding {
+        padding-top: 4.5rem
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-md-none">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+<section class="dashboard-padding bg-dark">
     <div class="container-fluid">
         <div class="row">
-            <!-- Dashboard Sidebar -->
-            <div class="col-md-2 bg-secondary min-vh-100">
+        <div class="col-md-2 bg-secondary d-none d-md-block min-vh-100">
                 <h4 class="text-white p-3">Dashboard</h4>
-                <!-- Sidebar content like navigation links can go here -->
+                <!-- Sidebar content -->
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/admin/categories">Manage Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/admin/tags">Manage Tags</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/admin/archive">Archive Wikis</a>
+                    </li>
+                    <!-- More links can be added here -->
+                </ul>
+            </div>
+
+            <div class="collapse d-md-none" id="sidebarCollapse">
+                <div class="bg-secondary p-3">
+                    <h4 class="text-white">Dashboard</h4>
+                    <!-- Collapsed Sidebar content -->
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/admin/categories">Manage Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/admin/tags">Manage Tags</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/admin/archive">Archive Wikis</a>
+                        </li>
+                        <!-- More links can be added here -->
+                    </ul>
+                </div>
             </div>
             
-            <!-- Dashboard Content -->
             <div class="col-md-10">
-                <div class="row">
+            <div class="row">
                     <div class="col-lg-12">
                         <h3 class="text-white text-center mt-5 mb-4">Statistics & Charts</h3>
                     </div>
                 </div>
                 
-                <!-- Statistics Cards -->
+                
                 <div class="row text-white mb-4">
                     <div class="col-md-4 mb-3">
                         <div class="card bg-primary">
@@ -43,7 +84,6 @@
                     </div>
                 </div>
                 
-                <!-- Charts Row -->
                 <div class="row">
                     <div class="col-lg-6 mb-4">
                         <!-- Chart container -->
@@ -62,18 +102,3 @@
         </div>
     </div>
 </section>
-
-<!-- Include Chart.js library -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Example of initializing a chart using Chart.js
-    const visitsCtx = document.getElementById('visitsChart').getContext('2d');
-    const visitsChart = new Chart(visitsCtx, {
-        // Chart configuration goes here
-    });
-
-    const salesCtx = document.getElementById('salesChart').getContext('2d');
-    const salesChart = new Chart(salesCtx, {
-        // Chart configuration goes here
-    });
-</script>
