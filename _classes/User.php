@@ -7,9 +7,10 @@ class User
     public $name;
     private $password;
 
-    public function __construct($email, $password)
+    public function __construct($name, $email, $password)
     {
         $this->email = $email;
+        $this->name = $name;
         $this->password = $password;
     }
 
@@ -56,8 +57,7 @@ public function register()
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            echo "Email already exists.";
-            return false;
+            return json_encode(["Email already exists."]);
         }
 
         // Check total number of users to determine the role
@@ -80,16 +80,15 @@ public function register()
         $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
         $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
         $stmt->bindParam(':role', $role, PDO::PARAM_STR);
+        
 
         if ($stmt->execute()) {
-            return true;
+            return json_encode(['Registration successful']);
         } else {
-            echo "Error: " . $db->errorInfo()[2];
-            return false;
+            return json_encode(['Error: ' . $db->errorInfo()[2]]);
         }
     } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-        return false;
+        return json_encode(['Error: ' . $e->getMessage()]);
     }
 }
 

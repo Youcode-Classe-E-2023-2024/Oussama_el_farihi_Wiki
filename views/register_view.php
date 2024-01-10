@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <h5 class="text-white text-center mt-5 mb-4">Create Your Account</h5>
-                <form method="post" action="index.php?page=register">
+                <form id="registerForm">
                     <div class="form-group mb-3">
                         <input class="form-control py-4 w-100" name="name" type="text" placeholder="Full Name" required/>
                     </div>
@@ -25,3 +25,22 @@
         </div>
     </div>
 </section>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+
+    fetch('index.php?page=register', {
+            method: 'post',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
