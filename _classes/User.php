@@ -7,73 +7,62 @@ class User
     public $name;
     private $password;
 
-    public function __construct($name, $email, $password)
+    public function __construct($email, $password)
     {
-        $this->name = $name;
         $this->email = $email;
         $this->password = $password;
     }
 
-    static function getAll()
+
+    public function login()
     {
         global $db;
-        $result = $db->query("SELECT * FROM users");
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+        try {
+            $stmt = $db->prepare("SELECT id, name, password, role FROM users WHERE email = :email");
+            $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
+            $stmt->execute();
+            
+            // Fetching the result in an associative array
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    function edit()
-    {
-        global $db;
-        return $db->query("UPDATE users SET email = '$this->email', name = '$this->name' WHERE id = '$this->id'");
-    }
+            if ($result && password_verify($this->password, $result['password'])) {
+                $_SESSION["id"] = $result['id'];
+                $_SESSION["name"] = $result['name'];
+                $_SESSION["role"] = $result['role'];
 
-
-    static function login($email, $password)
-    {
-        global $db;
-        $stmt = $db->prepare("SELECT id, name, password, role FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->bind_result($userId, $name, $hashedPass, $role);
-        $stmt->fetch();
-        $stmt->close();
-
-        if (password_verify($password, $hashedPass)) {
-            $_SESSION["id"] = $userId;
-            $_SESSION["name"] = $name;
-            $_SESSION["role"] = $role;
-
-            if ($role == 'admin') {
-                header("Location: index.php?page=dashboard");
-                exit;
+                if ($result['role'] == 'admin') {
+                    header("Location: index.php?page=dashboard");
+                    exit;
+                } else {
+                    header("Location: index.php?page=home");
+                    exit;
+                }
             } else {
-                header("Location: index.php?page=home");
-                exit;
+                echo "Invalid email or password.";
             }
-        } else {
-            echo  password_hash("123", PASSWORD_DEFAULT);
-            echo "Invalid email or password121.";
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
         }
     }
 
-    public function register()
-    {
-        global $db;
+public function register()
+{
+    global $db;
 
+    try {
         // Check if email already exists
-        $stmt = $db->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->bind_param("s", $this->email);
+        $stmt = $db->prepare("SELECT id FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
         $stmt->execute();
-        $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
+        if ($stmt->rowCount() > 0) {
             echo "Email already exists.";
             return false;
         }
 
         // Check total number of users to determine the role
-        $result = $db->query("SELECT COUNT(*) as total FROM users");
-        $row = $result->fetch_assoc();
+        $stmt = $db->query("SELECT COUNT(*) as total FROM users");
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $totalUsers = $row['total'];
 
         if ($totalUsers === '0') {
@@ -86,16 +75,24 @@ class User
         $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 
         // Prepare the SQL query for inserting a new user
-        $stmt = $db->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $this->name, $this->email, $hashedPassword, $role);
+        $stmt = $db->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
+        $stmt->bindParam(':name', $this->name, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+        $stmt->bindParam(':role', $role, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             return true;
         } else {
-            echo "Error: " . $stmt->error;
+            echo "Error: " . $db->errorInfo()[2];
             return false;
         }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return false;
     }
+}
+
 
 
 }
