@@ -57,7 +57,7 @@
                             <div class="col-lg-12">
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                     data-bs-target="#addEmployeeModal">
-                                    <i class="material-icons">&#xE147;</i> <span>Add New Tags</span>
+                                    <i class="material-icons">&#xE147;</i> <span>Add New Tag</span>
                                 </button>
                             </div>
                         </div>
@@ -71,95 +71,91 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach ($alltags as $tags): ?>
                                 <tr>
-                                    <td>Thomas Hardy</td>
                                     <td>
-                                        <button type="button" class="btn" data-bs-toggle="modal"
-                                            data-bs-target="#editEmployeeModal">
-                                            <i class="material-icons" data-toggle="tooltip" title="Edit"
-                                                style="color: yellow;">&#xE254;</i>
-                                        </button>
-
-                                        <button type="button" class="btn" data-bs-toggle="modal"
-                                            data-bs-target="#deleteEmployeeModal">
-                                            <i class="material-icons" data-toggle="tooltip" title="Delete"
-                                                style="color: red;">&#xE872;</i>
-                                        </button>
+                                        <?= htmlspecialchars($tags['name']) ?>
                                     </td>
-                                </tr>
+                                    <td>
+                                        <!-- Edit Button -->
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#editTagModal-<?= $tags['id'] ?>">
+                                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                            </button>
+
+                                            <!-- Delete Button -->
+                                            <form method="post" action="index.php?page=tags">
+                                                <input type="hidden" name="tag_id" value="<?= $tags['id'] ?>">
+                                                <button type="submit" class="btn btn-danger" name="delete_tags">
+                                                    <i class="material-icons" data-toggle="tooltip"
+                                                        title="Delete">&#xE872;</i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <!-- Edit Modal -->
+                                    <div id="editTagModal-<?= $tags['id'] ?>" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form method="post" action="index.php?page=tags">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Edit Tag</h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label>Name</label>
+                                                            <input type="text" name="name"
+                                                                value="<?= htmlspecialchars($tags['name']) ?>"
+                                                                class="form-control" required>
+                                                        </div>
+                                                        <input type="hidden" name="tag_id"
+                                                            value="<?= $tags['id'] ?>">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="button" class="btn btn-default" data-dismiss="modal"
+                                                            value="Cancel">
+                                                        <input type="submit" class="btn btn-info" value="Save Changes"
+                                                            name="update_tag">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
                             </tbody>
+
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Edit Modal HTML -->
-        <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add Tag</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    </div>
+    <!-- Add Modal HTML -->
+    <div id="addEmployeeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="index.php?page=tags">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add tags</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control" required>
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-success" value="Add" name="add_tag">
+                    </div>
+                </form>
             </div>
         </div>
-        <!-- Edit Modal HTML -->
-        <div id="editEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Tag</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-info" value="Save">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Delete Modal HTML -->
-        <div id="deleteEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Delete Tag</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Are you sure you want to delete this tag?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-danger" value="Delete">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!------------------- end   data table----------------------------------------------->
+    </div>
+    <!------------------- end   data table----------------------------------------------->
     </div>
     </div>
     </div>
