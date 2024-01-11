@@ -1,3 +1,10 @@
+<?php
+if (!isset($_SESSION['id'])) {
+    header("Location: index.php?page=login");
+    exit;
+}
+?>
+
 <section class="min-vh-100 d-flex justify-content-center align-items-center bg-dark">
     <div class="container">
         <div class="row justify-content-center">
