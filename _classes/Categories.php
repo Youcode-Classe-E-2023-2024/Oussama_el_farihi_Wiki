@@ -44,6 +44,17 @@ class Categories {
         return $stmt->execute();
     }
 
+    public function getAllCategories()
+    {
+        global $db;
+
+        $stmt = $db->prepare("SELECT * FROM categories");
+        $stmt->execute();
+
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $categories;
+    }
+
     // Additional methods can be added here, such as getCategoryById(), getAllCategories(), etc.
 }
 
