@@ -31,6 +31,7 @@ CREATE TABLE Wikis (
     date_edit DATETIME ON UPDATE CURRENT_TIMESTAMP,
     auteur_id INT,
     categorie_id INT,
+    img VARCHAR(255) NOT NULL,
     FOREIGN KEY (auteur_id) REFERENCES Users(id),
     FOREIGN KEY (categorie_id) REFERENCES Categories(id)
 );
