@@ -1,3 +1,14 @@
+<?php
+
+if(isset($_POST['logout'])){
+    session_unset();   // Unset the session variables.
+    session_destroy(); // Destroy the session.
+
+    header("Location: index.php?page=login"); // Redirect to login page
+    exit(); // It's a good practice to exit after a header redirect
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -45,7 +56,9 @@
                     </li>
                     <li><a href="index.php?page=wiki_form" class="btn btn-primary">New Wiki</a></li>
                     <?php if(isset($_SESSION['id'])): ?>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=logout">Logout</a></li>
+                        <form method="POST" action="">
+        <button type="submit" name="logout" class="btn btn-link nav-link px-lg-3 py-3 py-lg-4">Logout</button>
+    </form>
                     <?php else: ?>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=login">Login</a></li>
                     <?php endif; ?>
