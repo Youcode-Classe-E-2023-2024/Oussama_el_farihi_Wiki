@@ -31,16 +31,35 @@
 
         var formData = new FormData(this);
 
-    fetch('index.php?page=register', {
-            method: 'post',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        fetch('index.php?page=register', {
+                method: 'post',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred: ' + error,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
     });
 </script>

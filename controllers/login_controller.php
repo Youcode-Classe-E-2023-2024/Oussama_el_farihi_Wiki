@@ -1,6 +1,8 @@
 <?php
-    if(isset($_POST['login'])){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $newUser = new User($_POST["email"], null, $_POST["password"]);
-        $newUser->login();
-    } 
+        $response = $newUser->login();
+        echo $response;
+                die();
+    }
 ?>
