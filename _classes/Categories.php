@@ -55,7 +55,6 @@ class Categories {
         return $categories;
     }
 
-    // Additional methods can be added here, such as getCategoryById(), getAllCategories(), etc.
 }
 
 ?>
