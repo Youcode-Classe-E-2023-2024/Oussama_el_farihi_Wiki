@@ -1,11 +1,16 @@
 <?php
 
-if(isset($_POST['logout'])){
-    session_unset();   // Unset the session variables.
-    session_destroy(); // Destroy the session.
+// echo "<pre>";
+// print_r($_SESSION);
+// echo "<pre>";
 
-    header("Location: index.php?page=login"); // Redirect to login page
-    exit(); // It's a good practice to exit after a header redirect
+
+if(isset($_POST['logout'])){
+    session_unset();
+    session_destroy();
+
+    header("Location: index.php?page=login");
+    exit();
 }
 ?>
 
