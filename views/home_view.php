@@ -16,7 +16,7 @@
         <div class="col-md-10 col-lg-8 col-xl-7">
             <?php foreach ($wikis as $wiki): ?>
                 <div class="post-preview">
-                    <a href="wiki.php?id=<?= $wiki['id'] ?>"> <!-- Assuming you have a detailed view for each wiki -->
+                    <a href="index.php?page=wiki?id=<?= $wiki['id'] ?>"> <!-- Assuming you have a detailed view for each wiki -->
                         <h2 class="post-title"><?= htmlspecialchars($wiki['title']) ?></h2>
                         <h3 class="post-subtitle"><?= htmlspecialchars(substr($wiki['content'], 0, 150)) ?>...</h3>
                     </a>
