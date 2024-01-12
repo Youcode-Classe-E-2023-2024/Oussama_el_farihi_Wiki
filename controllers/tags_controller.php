@@ -1,8 +1,6 @@
 <?php
 
 
-
-
 if(isset($_POST['add_tag'])){
     $newCatego = new Tags($_POST['name']);
     $newCatego->createTags($_POST['name']);
