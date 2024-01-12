@@ -5,7 +5,7 @@
 // echo "<pre>";
 
 
-if(isset($_POST['logout'])){
+if (isset($_POST['logout'])) {
     session_unset();
     session_destroy();
 
@@ -41,6 +41,9 @@ if(isset($_POST['logout'])){
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -60,12 +63,14 @@ if(isset($_POST['logout'])){
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=">Contact</a>
                     </li>
                     <li><a href="index.php?page=wiki_form" class="btn btn-primary">New Wiki</a></li>
-                    <?php if(isset($_SESSION['id'])): ?>
+                    <?php if (isset($_SESSION['id'])): ?>
                         <form method="POST" action="">
-        <button type="submit" name="logout" class="btn btn-link nav-link px-lg-3 py-3 py-lg-4">Logout</button>
-    </form>
+                            <button type="submit" name="logout"
+                                class="btn btn-link nav-link px-lg-3 py-3 py-lg-4">Logout</button>
+                        </form>
                     <?php else: ?>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=login">Login</a>
+                        </li>
                     <?php endif; ?>
                 </ul>
             </div>
