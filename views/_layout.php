@@ -60,14 +60,13 @@ if (isset($_POST['logout'])) {
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=home">Home</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=">Contact</a>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=">My Wiki's</a>
                     </li>
                     <li><a href="index.php?page=wiki_form" class="btn btn-primary">New Wiki</a></li>
                     <?php if (isset($_SESSION['id'])): ?>
                         <form method="POST" action="">
-                            <button type="submit" name="logout"
-                                class="btn btn-link nav-link px-lg-3 py-3 py-lg-4">Logout</button>
-                        </form>
+                        <button type="submit" name="logout" class="btn logout-btn px-lg-3 py-3 py-lg-4">Logout</button>
+
                     <?php else: ?>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=login">Login</a>
                         </li>
