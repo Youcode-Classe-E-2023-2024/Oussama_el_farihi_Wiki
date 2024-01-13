@@ -83,6 +83,20 @@ class User
         }
     }
 
+    public function countUsers()
+    {
+        global $db;
+        $query = "SELECT COUNT(*) FROM users";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+
+        if (!$stmt) {
+            die('Query failed: ' . $db->errorInfo()[2]);
+        }
+
+        return intval($stmt->fetchColumn());
+    }
+
 
 
 }

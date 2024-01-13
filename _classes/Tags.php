@@ -51,6 +51,20 @@ class Tags {
         return $tags;
     }
 
+    public function countTags()
+    {
+        global $db;
+        $query = "SELECT COUNT(*) FROM tags";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+
+        if (!$stmt) {
+            die('Query failed: ' . $db->errorInfo()[2]);
+        }
+
+        return intval($stmt->fetchColumn());
+    }
+
 }
 
 ?>

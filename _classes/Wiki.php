@@ -140,5 +140,77 @@ class Wiki {
     }
 
 
+    static function searchForTitles($title)
+    {
+        global $db;
+        $title = "%" . $title . "%";
+        $sql = "SELECT * FROM Wikis WHERE title LIKE :title AND deleted_at IS NULL";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":title", $title, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    static function searchForTags($tag)
+    {
+        global $db;
+        $tag = "%" . $tag . "%";
+        $sql = "SELECT DISTINCT w.* FROM Wikis w
+                INNER JOIN Wiki_Tags wt ON w.id = wt.wiki_id
+                INNER JOIN Tags t ON wt.tag_id = t.id
+                WHERE t.name LIKE :tag AND w.deleted_at IS NULL";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":tag", $tag, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    static function searchForCategories($category) {
+        global $db;
+        $category = "%" . $category . "%";
+        $sql = "SELECT * FROM Wikis w JOIN Categories c ON w.categorie_id = c.id WHERE c.name LIKE :category";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":category", $category, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countWikis()
+    {
+        global $db;
+        $query = "SELECT COUNT(*) FROM Wikis";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+
+        if (!$stmt) {
+            die('Query failed: ' . $db->errorInfo()[2]);
+        }
+    }
+
+
+    public function getWikisByUserWithDetails($userId) {
+        global $db;
+        $stmt = $db->prepare("
+            SELECT 
+                w.*, 
+                u.name AS author_name, 
+                c.name AS category_name, 
+                GROUP_CONCAT(t.name SEPARATOR ', ') AS tags
+            FROM Wikis w
+            LEFT JOIN Users u ON w.auteur_id = u.id
+            LEFT JOIN Categories c ON w.categorie_id = c.id
+            LEFT JOIN Wiki_Tags wt ON w.id = wt.wiki_id
+            LEFT JOIN Tags t ON wt.tag_id = t.id
+            WHERE w.auteur_id = :userId AND w.deleted_at IS NULL
+            GROUP BY w.id
+            ORDER BY w.date_created DESC
+        ");
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+
+
 }
 ?>

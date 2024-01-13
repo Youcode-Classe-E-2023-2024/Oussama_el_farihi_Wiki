@@ -55,6 +55,26 @@ class Categories {
         return $categories;
     }
 
+    public function getCategoryCount() {
+        global $db;
+        $stmt = $db->query("SELECT id, name FROM Categories");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countCategories()
+    {
+        global $db;
+        $query = "SELECT COUNT(*) FROM categories";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+
+        if (!$stmt) {
+            die('Query failed: ' . $db->errorInfo()[2]);
+        }
+
+        return intval($stmt->fetchColumn());
+    }
+
 }
 
 ?>
