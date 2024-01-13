@@ -11,17 +11,20 @@ $categories = $categoriesClass->getAllCategories();
 $tagsClass = new Tags(null);
 $tags = $tagsClass->getAllTags();
 
-if (isset($_POST['delete_wiki'])) {
-    $wikiId = $_POST['wiki_id'];
-    $wikiClass->softDeleteWiki($wikiId);
-    header("Location: index.php?page=archive");
-    exit();
-}
+if (isset($_POST['update_mwiki'])) {
+    
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $categorieId = $_POST['category'];
+    $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
+    $id = $_POST['category_id'];
 
-if (isset($_POST['recover_wiki'])) {
-    $wikiId = $_POST['wiki_id'];
-    $wikiClass->RecoverWiki($wikiId);
-    header("Location: index.php?page=archive");
+
+    $success = $wikiClass->updateWikiById($id, $title, $content, $categorieId, $tags);
+
+    
+
+    header("Location: index.php?page=my_wikis");
     exit();
 }
 

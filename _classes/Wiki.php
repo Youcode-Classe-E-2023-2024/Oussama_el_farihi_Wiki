@@ -210,6 +210,31 @@ class Wiki {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+    public function updateWikiById($id, $title, $content, $categorieId, $tags) {
+            global $db;
+
+            $stmt = $db->prepare("UPDATE Wikis SET title = :title, content = :content, categorie_id = :categorie_id, date_edit = NOW() WHERE id = :id");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+            $stmt->bindParam(':categorie_id', $categorieId, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $stmt = $db->prepare("DELETE FROM Wiki_Tags WHERE wiki_id = :id");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            // Insert new tags
+            $stmt = $db->prepare("INSERT INTO Wiki_Tags (wiki_id, tag_id) VALUES (:wiki_id, :tag_id)");
+            foreach ($tags as $tagId) {
+                $stmt->bindParam(':wiki_id', $id, PDO::PARAM_INT);
+                $stmt->bindParam(':tag_id', $tagId, PDO::PARAM_INT);
+                $stmt->execute();
+            
+        }
+    }
     
 
 
