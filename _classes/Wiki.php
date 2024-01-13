@@ -72,6 +72,13 @@ class Wiki {
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function RecoverWiki($id) {
+        global $db;
+        $stmt = $db->prepare("UPDATE Wikis SET deleted_at = NULL WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
     
     public function getDetailedWikiById($wikiId){
         global $db;
