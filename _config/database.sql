@@ -32,6 +32,7 @@ CREATE TABLE Wikis (
     auteur_id INT,
     categorie_id INT,
     img VARCHAR(255) NOT NULL,
+    deleted_at TIMESTAMP NULL DEFAULT NULL,
     FOREIGN KEY (auteur_id) REFERENCES Users(id),
     FOREIGN KEY (categorie_id) REFERENCES Categories(id)
 );
