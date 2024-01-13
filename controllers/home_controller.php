@@ -24,8 +24,11 @@ if(isset($_GET["search_category"])) {
     exit;
 }
 
-echo "pre";
-var_dump($_GET);
-echo "pre";
+$categoriesClass = new Categories(null, null);
+$allCategories = $categoriesClass->getAllCategories();
+
+// echo "pre";
+// var_dump($_GET);
+// echo "pre";
 
 ?>
