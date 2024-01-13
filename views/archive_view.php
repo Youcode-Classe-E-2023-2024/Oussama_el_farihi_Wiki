@@ -102,6 +102,15 @@
                                         <td>
                                             <?= htmlspecialchars($wiki['author_name']) ?>
                                         </td>
+                                        <td>
+                                            <form method="post" action="index.php?page=archive">
+                                                <input type="hidden" name="wiki_id" value="<?= $wiki['id'] ?>">
+                                                <button type="submit" class="btn btn-success" name="recover_wiki">
+                                                    <i class="material-icons" data-toggle="tooltip"
+                                                        title="Recover">restore</i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
