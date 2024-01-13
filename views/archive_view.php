@@ -51,8 +51,77 @@
                     <div class="col-lg-12">
                         <h3 class="text-white text-center mt-5 mb-4">Archiving Wiki's</h3>
                     </div>
-
+                    <h4 class="text-white">Not archived wiki's :</h4>
+                    <div class="table-responsive mt-4">
+                        <table class="table table-dark table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>wiki Name</th>
+                                    <th>wiki auteur</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($wikis as $wiki): ?>
+                                    <tr>
+                                        <td>
+                                            <?= htmlspecialchars($wiki['title']) ?>
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars($wiki['author_name']) ?>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="index.php?page=archive">
+                                                <input type="hidden" name="wiki_id" value="<?= $wiki['id'] ?>">
+                                                <button type="submit" class="btn btn-danger" name="delete_wiki">
+                                                    <i class="material-icons" data-toggle="tooltip"
+                                                        title="Delete">&#xE872;</i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4 class="text-white">archived wiki's :</h4>
+                    <div class="table-responsive mt-4">
+                        <table class="table table-dark table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>wiki Name</th>
+                                    <th>wiki auteur</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($wikiDs as $wiki): ?>
+                                    <tr>
+                                        <td>
+                                            <?= htmlspecialchars($wiki['title']) ?>
+                                        </td>
+                                        <td>
+                                            <?= htmlspecialchars($wiki['author_name']) ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------- end   data table----------------------------------------------->
     </div>
     </div>
     </div>
 </section>
+<script>
+    $(document).ready(function () {
+        // Activate Bootstrap tooltip
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    });
+</script>
