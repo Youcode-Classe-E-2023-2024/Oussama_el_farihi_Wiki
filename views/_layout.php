@@ -44,6 +44,8 @@ if (isset($_POST['logout'])) {
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -60,7 +62,7 @@ if (isset($_POST['logout'])) {
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=home">Home</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=">My Wiki's</a>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?page=my_wikis">My Wiki's</a>
                     </li>
                     <li><a href="index.php?page=wiki_form" class="btn btn-primary">New Wiki</a></li>
                     <?php if (isset($_SESSION['id'])): ?>
