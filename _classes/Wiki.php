@@ -185,6 +185,7 @@ class Wiki {
         if (!$stmt) {
             die('Query failed: ' . $db->errorInfo()[2]);
         }
+        return intval($stmt->fetchColumn());
     }
 
 
