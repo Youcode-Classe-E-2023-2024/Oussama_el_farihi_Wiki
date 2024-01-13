@@ -80,19 +80,20 @@
   }
 }
 
-.logout-btn {
-  color: var(--bs-white);
-  background-color: transparent;
-  border: none;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
+.search-form .input-group {
+  margin-bottom: 20px;
 }
 
-.logout-btn:hover, .logout-btn:focus {
-  color: var(--bs-link-hover-color);
-  background-color: var(--bs-nav-tabs-link-active-bg);
-  border-color: var(--bs-nav-tabs-link-active-border-color);
+.search-form .form-control {
+  border-radius: 0.25rem 0 0 0.25rem;
+  border-right: none;
 }
+
+.search-form .btn-outline-primary {
+  border-radius: 0 0.25rem 0.25rem 0;
+  border-left: none;
+}
+
 
 body {
   margin: 0;
