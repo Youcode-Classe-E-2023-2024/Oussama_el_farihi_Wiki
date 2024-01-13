@@ -112,7 +112,8 @@ class Wiki {
             LEFT JOIN Tags t ON wt.tag_id = t.id
             WHERE w.deleted_at IS NULL
             GROUP BY w.id
-            ORDER BY w.date_created DESC
+            ORDER BY w.date_edit DESC
+            LIMIT 5
         ");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -133,11 +134,11 @@ class Wiki {
             LEFT JOIN Tags t ON wt.tag_id = t.id
             WHERE w.deleted_at IS NOT NULL
             GROUP BY w.id
-            ORDER BY w.date_created DESC
+            ORDER BY w.date_edit DESC
         ");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    }    
 
 
     static function searchForTitles($title)
