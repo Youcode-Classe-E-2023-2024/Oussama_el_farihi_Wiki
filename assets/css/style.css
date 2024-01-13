@@ -80,6 +80,20 @@
   }
 }
 
+.logout-btn {
+  color: var(--bs-white);
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}
+
+.logout-btn:hover, .logout-btn:focus {
+  color: var(--bs-link-hover-color);
+  background-color: var(--bs-nav-tabs-link-active-bg);
+  border-color: var(--bs-nav-tabs-link-active-border-color);
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -10785,3 +10799,4 @@ header.masthead .post-heading .meta a {
     font-size: 2.25rem;
   }
 }
+
