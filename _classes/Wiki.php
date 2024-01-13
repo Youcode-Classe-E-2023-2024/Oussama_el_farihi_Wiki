@@ -226,7 +226,6 @@ class Wiki {
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            // Insert new tags
             $stmt = $db->prepare("INSERT INTO Wiki_Tags (wiki_id, tag_id) VALUES (:wiki_id, :tag_id)");
             foreach ($tags as $tagId) {
                 $stmt->bindParam(':wiki_id', $id, PDO::PARAM_INT);

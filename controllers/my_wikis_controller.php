@@ -28,4 +28,12 @@ if (isset($_POST['update_mwiki'])) {
     exit();
 }
 
+if (isset($_POST['delete_mwiki'])) {
+    $wikiId = $_POST['wiki_id'];
+    $wikiClass->softDeleteWiki($wikiId);
+    
+    header("Location: index.php?page=my_wikis");
+    exit();
+}
+
 ?>

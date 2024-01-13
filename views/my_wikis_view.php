@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 bg-secondary d-none d-md-block min-vh-100">
-
+            <h4 class="text-white p-3"><a class="text-white" href="index.php?page=my_wikis">Author Dashboard</a></h4>
             </div>
 
             <div class="col-md-10">
@@ -51,9 +51,9 @@
                                             </button>
 
                                             <!-- Delete Button -->
-                                            <form method="post" action="index.php?page=categories">
-                                                <input type="hidden" name="category_id" value="<?= $wiki['id'] ?>">
-                                                <button type="submit" class="btn btn-danger" name="delete_catego">
+                                            <form method="post" action="index.php?page=my_wikis">
+                                                <input type="hidden" name="wiki_id" value="<?= $wiki['id'] ?>">
+                                                <button type="submit" class="btn btn-danger" name="delete_mwiki">
                                                     <i class="material-icons" data-toggle="tooltip"
                                                         title="Delete">&#xE872;</i>
                                                 </button>
@@ -72,14 +72,14 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
-                                                            <label>Name</label>
-                                                            <input type="text" name="name"
+                                                            <label>Title</label>
+                                                            <input type="text" name="title"
                                                                 value="<?= htmlspecialchars($wiki['title']) ?>"
                                                                 class="form-control" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Description</label>
-                                                            <input type="text" name="description"
+                                                            <label>Content</label>
+                                                            <input type="text" name="content"
                                                                 value="<?= htmlspecialchars($wiki['content']) ?>"
                                                                 class="form-control" required>
                                                         </div>
@@ -112,7 +112,7 @@
                                                         <input type="button" class="btn btn-default" data-dismiss="modal"
                                                             value="Cancel">
                                                         <input type="submit" class="btn btn-info" value="Save Changes"
-                                                            name="update_catego">
+                                                            name="update_mwiki">
                                                     </div>
                                                 </form>
                                             </div>
