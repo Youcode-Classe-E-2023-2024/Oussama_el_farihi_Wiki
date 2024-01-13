@@ -64,8 +64,74 @@ class Wiki {
     public function getLastInsertId() {
         global $db;
         return $db->lastInsertId();
-    }    
+    }  
 
-    // Additional methods can be added as needed
+    public function softDeleteWiki($id) {
+        global $db;
+        $stmt = $db->prepare("UPDATE Wikis SET deleted_at = NOW() WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+    
+    public function getDetailedWikiById($wikiId){
+        global $db;
+        $stmt = $db->prepare("SELECT w.*, u.name AS author_name, c.name AS category_name, GROUP_CONCAT(t.name) AS tags
+        FROM Wikis w
+        JOIN Users u ON w.auteur_id = u.id
+        JOIN Categories c ON w.categorie_id = c.id
+        LEFT JOIN Wiki_Tags wt ON w.id = wt.wiki_id
+        LEFT JOIN Tags t ON wt.tag_id = t.id
+        WHERE w.id = :wiki_id
+        GROUP BY w.id;
+        ");
+        $stmt->bindParam(':wiki_id', $wikiId);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    public function getAllWikisWithDetails() {
+        global $db;
+        $stmt = $db->prepare("
+            SELECT 
+                w.*, 
+                u.name AS author_name, 
+                c.name AS category_name, 
+                GROUP_CONCAT(t.name SEPARATOR ', ') AS tags
+            FROM Wikis w
+            LEFT JOIN Users u ON w.auteur_id = u.id
+            LEFT JOIN Categories c ON w.categorie_id = c.id
+            LEFT JOIN Wiki_Tags wt ON w.id = wt.wiki_id
+            LEFT JOIN Tags t ON wt.tag_id = t.id
+            WHERE w.deleted_at IS NULL
+            GROUP BY w.id
+            ORDER BY w.date_created DESC
+        ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllWikisWithDetails2() {
+        global $db;
+        $stmt = $db->prepare("
+            SELECT 
+                w.*, 
+                u.name AS author_name, 
+                c.name AS category_name, 
+                GROUP_CONCAT(t.name SEPARATOR ', ') AS tags
+            FROM Wikis w
+            LEFT JOIN Users u ON w.auteur_id = u.id
+            LEFT JOIN Categories c ON w.categorie_id = c.id
+            LEFT JOIN Wiki_Tags wt ON w.id = wt.wiki_id
+            LEFT JOIN Tags t ON wt.tag_id = t.id
+            WHERE w.deleted_at IS NOT NULL
+            GROUP BY w.id
+            ORDER BY w.date_created DESC
+        ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }
 ?>
