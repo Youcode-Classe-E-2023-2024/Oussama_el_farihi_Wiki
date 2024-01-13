@@ -14,6 +14,10 @@ if (!isset($_SESSION['id'])) {
                     <div class="form-group mb-3">
                         <input class="form-control py-4 w-100" type="text" name="title"  placeholder="Wiki Title" required />
                     </div>
+                    <div class="form-group mb-4">
+                        <label for="imageUpload" class="text-white-50">Upload Images:</label>
+                        <input type="file" name="img" class="form-control-file">
+                    </div>
                     <div class="form-group mb-3">
                         <textarea class="form-control py-4 w-100" rows="8" name="content" placeholder="Full Article Content"
                             required></textarea>
@@ -36,10 +40,6 @@ if (!isset($_SESSION['id'])) {
                                 </option>
                             <?php endforeach; ?>
                         </select>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label for="imageUpload" class="text-white-50">Upload Images:</label>
-                        <input type="file" name="img" class="form-control-file">
                     </div>
                     <div class="form-group mb-4">
                         <button class="btn btn-primary w-100" type="submit" name="wiki">Create Wiki</button>
