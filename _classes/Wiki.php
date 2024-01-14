@@ -46,6 +46,29 @@ class Wiki {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public static function getWikisByCateg($id) {
+        global $db;
+        $stmt = $db->prepare("
+            SELECT 
+                w.*, 
+                u.name AS author_name, 
+                c.name AS category_name, 
+                GROUP_CONCAT(t.name SEPARATOR ', ') AS tags
+            FROM Wikis w
+            LEFT JOIN Users u ON w.auteur_id = u.id
+            LEFT JOIN Categories c ON w.categorie_id = c.id
+            LEFT JOIN Wiki_Tags wt ON w.id = wt.wiki_id
+            LEFT JOIN Tags t ON wt.tag_id = t.id
+            WHERE w.categorie_id = :id AND w.deleted_at IS NULL
+            GROUP BY w.id
+            ORDER BY w.date_edit DESC
+        ");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }    
+    
+
     public static function getAllWikis() {
         global $db;
         $stmt = $db->prepare("SELECT * FROM Wikis");
