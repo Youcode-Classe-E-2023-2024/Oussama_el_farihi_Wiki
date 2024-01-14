@@ -16,6 +16,14 @@ if(isset($_GET["search_title"])) {
     exit;
 }
 
+if(isset($_GET["search_category"])) {
+    $input_value = $_GET["input_value"];
+    $searchedData = Wiki::searchForCategories($input_value);
+
+    echo json_encode($searchedData);
+    exit;
+}
+
 if(isset($_GET["search_tag"])) {
     $input_value = $_GET["input_value"];
     $searchedData = Wiki::searchForTags($input_value);
@@ -24,8 +32,6 @@ if(isset($_GET["search_tag"])) {
     exit;
 }
 
-// echo "pre";
-// var_dump($_GET);
-// echo "pre";
+// print_r($allCategories[2]);
 
 ?>
