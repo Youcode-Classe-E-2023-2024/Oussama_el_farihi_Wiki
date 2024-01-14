@@ -80,6 +80,18 @@
   }
 }
 
+.tag-badge {
+  display: inline-block;
+  background-color: #0085A1;
+  color: white;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  text-decoration: none;
+}
+
+
 .category-menu {
   background-color: #0085A1; 
   padding: 20px;
