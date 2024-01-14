@@ -54,59 +54,58 @@
             <!-- Pager -->
             <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts</a></div>
         </div>
-                            <!-- Assuming this is inside your main row -->
+                            <!-- categories displaying -->
         <div class="col-md-3 ">
             <div class="category-menu">
                 <h3>Categories :</h3>
                 <ul class="category-list">
              <?php foreach ($allCategories as $category): ?>
-                <li><a href="index.php?page=category&id=<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></a></li>
+                <li><a href="index.php?page=wiki_categ&id=<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></a></li>
             <?php endforeach; ?>
         </ul>
         </div>
         </div>
     </div>
 </div>
-
 <script>
     const searchInput = document.getElementById("search-input");
     const resultsContainer = document.getElementById("search-results-container");
     const searchType = document.getElementById("search-type");
 
+
+
     searchInput.addEventListener("input", () => {
+        console.log(searchType.value);
         if (searchInput.value !== "") {
             getSearchedResults();
-        } else {
+        } else
             resultsContainer.innerHTML = "";
-        }
-    });
+    })
 
     function getSearchedResults() {
         resultsContainer.innerHTML = "";
         $.get(
-
-            `index.php?page=home&search_bar&search_${searchType.value}=true&input_value=${encodeURIComponent(searchInput.value)}`,
+            "index.php?page=home&search_" + searchType.value + "=true&input_value=" + searchInput.value,
             (data) => {
                 let searchedData = JSON.parse(data);
-                if (searchedData.length === 0) {
-                    resultsContainer.innerHTML = '<p>No results found.</p>';
-                    return;
-                }
 
                 searchedData.forEach((item) => {
-                    let itemHtml = `
-                    <div class="searched-item my-6">
-                        <div class="container">
-                            <h2>${item.title}</h2>
-                            <p>${item.content.substring(0, 150)}...</p>
-                            <a href="index.php?page=wiki&id=${item.id}" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                `;
-                    resultsContainer.innerHTML += itemHtml;
+                    console.log(item);
+                    resultsContainer.innerHTML += `<div class="post-preview">
+                <a href="index.php?page=wiki&id=${item.id}">
+                    <h2 class="post-title">${item.title}</h2>
+                    <h3 class="post-subtitle">${item.content}...</h3>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="#!">${item.author_name}</a>
+                    on ${item.create_at}
+                </p>
+            </div>`;
                 });
             }
         );
-    }
 
+
+    }
 </script>
